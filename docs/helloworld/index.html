@@ -105,11 +105,28 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <p>Start within a new folder,<br/>and create a file <code>project/plugins.sbt</code> as follows:</p>
 <pre class="prettyprint"><code class="language-sbt">resolvers += Resolver.sonatypeRepo(&quot;snapshots&quot;)
 
-addSbtPlugin(&quot;org.scala-native&quot; % &quot;sbtplugin&quot;  % &quot;0.1-SNAPSHOT&quot;)</code></pre>
+addSbtPlugin(&quot;org.scala-native&quot; % &quot;sbtplugin&quot;  % &quot;0.1-SNAPSHOT&quot;)
+
+addSbtPlugin(&quot;com.lightbend.paradox&quot; % &quot;sbt-paradox&quot; % &quot;0.2.0&quot;)</code></pre>
 <p>define a new <code>build.sbt</code>:</p>
 <pre class="prettyprint"><code class="language-sbt">enablePlugins(ScalaNativePlugin)
+enablePlugins(ParadoxPlugin)
 
-scalaVersion := &quot;2.11.8&quot;</code></pre>
+scalaVersion := &quot;2.11.8&quot;
+
+name := &quot;scala-native-example-docs&quot;
+
+paradoxTheme := Some(builtinParadoxTheme(&quot;generic&quot;))
+
+lazy val deploy = taskKey[Unit](&quot;Deploy pages for github docs&quot;)
+
+deploy := {
+  IO.copyDirectory(
+    target.value / &quot;paradox&quot; / &quot;site&quot;,
+    file(&quot;docs/&quot;),
+    overwrite = true,
+    preserveLastModified = true)
+}</code></pre>
 <p>and now you can write your first application in <code>./src/main/scala/HelloWorld.scala</code>:</p>
 <pre class="prettyprint"><code class="language-scala">package example
 

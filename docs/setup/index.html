@@ -115,15 +115,14 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
   <li>Under section &ldquo;Download LLVM 3.8.0&rdquo;, look for section [Pre-Build Binaries]</li>
 </ul>
 <p><strong>This is an example on how you can install the pre-built binaries:</strong></p>
-<pre>
-    # This is an example on how you can install the pre-built binaries
-    $ mkdir -p $HOME/Downloads && cd $HOME/Downloads
+<pre class="prettyprint"><code class="language-bash">    # This is an example on how you can install the pre-built binaries
+    $ mkdir -p $HOME/Downloads &amp;&amp; cd $HOME/Downloads
     $ wget http://llvm.org/releases/3.8.0/clang+llvm-3.8.0-x86_64-linux-gnu-debian8.tar.xz
-    $ mkdir -p $HOME/tools/developer && cd $HOME/tools/developer
+    $ mkdir -p $HOME/tools/developer &amp;&amp; cd $HOME/tools/developer
     $ tar xpf $HOME/Downloads/clang+llvm-3.8.0-x86_64-linux-gnu-debian8.tar.xz
     $ export PATH=$HOME/tools/developer/clang+llvm-3.8.0-x86_64-linux-gnu-debian8/bin:$PATH
     $ hash -r
-</pre>
+</code></pre>
 <h4><a href="#installing-libgc-dev" name="installing-libgc-dev" class="anchor"><span class="anchor-link"></span></a>Installing libgc-dev</h4>
 <pre class="prettyprint"><code class="language-bash">    $ sudo apt-get install libgc-dev -y --force-yes
 </code></pre>
