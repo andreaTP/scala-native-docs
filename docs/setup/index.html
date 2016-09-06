@@ -103,37 +103,74 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <h1><a href="#setup" name="setup" class="anchor"><span class="anchor-link"></span></a>Setup</h1>
 <p>This is what you will be doing, in a nutshell:</p>
 <ul>
-  <li>installation of LLVM and Clang (if needed!)</li>
+  <li>installation of SBT</li>
+  <li>installation of LLVM and Clang</li>
   <li>installation of libgc-dev</li>
-  <li>run <em>this</em> application and see the output generated</li>
+  <li>run the demo application and see the output generated</li>
 </ul>
+<h4><a href="#installing-sbt" name="installing-sbt" class="anchor"><span class="anchor-link"></span></a>Installing SBT</h4>
+<p>Please refer to <a href="http://www.scala-sbt.org/release/docs/Setup.html">this link</a> for instructions for your Os.</p>
 <h4><a href="#installing-llvm-and-clang" name="installing-llvm-and-clang" class="anchor"><span class="anchor-link"></span></a>Installing LLVM and CLang</h4>
 <p><strong>NOTE:</strong> If you already have LLVM &gt;= 3.7 and Clang &gt;= 3.7 installed in your system, you probably can skip to the next section.</p>
-<p>You can install LLVM and Clang from their APT repository:<br/>* [Installation script for Debian Jessie]</p>
-<p>In case the LLVM APT repository is down, please install from pre-built binaries:</p>
-<ul>
-  <li>Under section &ldquo;Download LLVM 3.8.0&rdquo;, look for section [Pre-Build Binaries]</li>
-</ul>
-<p><strong>This is an example on how you can install the pre-built binaries:</strong></p>
-<pre class="prettyprint"><code class="language-bash">    # This is an example on how you can install the pre-built binaries
-    $ mkdir -p $HOME/Downloads &amp;&amp; cd $HOME/Downloads
-    $ wget http://llvm.org/releases/3.8.0/clang+llvm-3.8.0-x86_64-linux-gnu-debian8.tar.xz
-    $ mkdir -p $HOME/tools/developer &amp;&amp; cd $HOME/tools/developer
-    $ tar xpf $HOME/Downloads/clang+llvm-3.8.0-x86_64-linux-gnu-debian8.tar.xz
-    $ export PATH=$HOME/tools/developer/clang+llvm-3.8.0-x86_64-linux-gnu-debian8/bin:$PATH
-    $ hash -r
-</code></pre>
-<h4><a href="#installing-libgc-dev" name="installing-libgc-dev" class="anchor"><span class="anchor-link"></span></a>Installing libgc-dev</h4>
-<pre class="prettyprint"><code class="language-bash">    $ sudo apt-get install libgc-dev -y --force-yes
-</code></pre>
-<h4><a href="#run-application-and-see-the-output-generated" name="run-application-and-see-the-output-generated" class="anchor"><span class="anchor-link"></span></a>Run <em>this</em> application and see the output generated</h4>
+<dl>
+  <dt>Ubuntu</dt>
+  <dd>
+  <pre class="prettyprint"><code class="language-bash">$ sudo apt-get install llvm-3.8
+</code></pre></dd>
+  <dt>OsX</dt>
+  <dd>
+  <pre class="prettyprint"><code class="language-bash">$ brew install homebrew/versions/llvm38
+</code></pre></dd>
+  <dt>FreeBSD</dt>
+  <dd>
+  <pre class="prettyprint"><code class="language-bash">$ pkg install llvm38
+</code></pre></dd>
+  <dt>old Debian/Ubuntu</dt>
+  <dd>
+  <pre class="prettyprint"><code class="language-bash">#please choose your system version instead of &#39;precise&#39;
+$ sudo echo &#39;deb http://llvm.org/apt/precise/ llvm-toolchain-precise-3.7 main&#39; &gt;&gt; /etc/apt/sources.list
+$ sudo sh -c &quot;echo &#39;deb http://llvm.org/apt/precise/ llvm-toolchain-precise main&#39; &gt;&gt; /etc/apt/sources.list&quot;
+$ wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -
+$ sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+$ sudo apt-get -qq update
+$ sudo apt-get install -y libgc-dev clang++-3.7 llvm-3.7 llvm-3.7-dev llvm-3.7-runtime llvm-3.7-tool
+</code></pre></dd>
+</dl>
+<h4><a href="#installing-boehm-gc" name="installing-boehm-gc" class="anchor"><span class="anchor-link"></span></a>Installing Boehm GC</h4>
+<p>You will need to install the default Boehm-GC:</p>
+<dl>
+  <dt>Ubuntu</dt>
+  <dd>
+  <pre class="prettyprint"><code class="language-bash">$ sudo apt-get install libgc-dev
+</code></pre></dd>
+  <dt>OsX</dt>
+  <dd>
+  <pre class="prettyprint"><code class="language-bash">$ brew install bdw-gc
+</code></pre></dd>
+  <dt>FreeBSD</dt>
+  <dd>
+  <pre class="prettyprint"><code class="language-bash">$ pkg install boehm-gc
+</code></pre></dd>
+  <dt>old Debian/Ubuntu</dt>
+  <dd>
+  <pre class="prettyprint"><code class="language-bash">$ git clone git://github.com/ivmai/bdwgc.git
+$ cd bdwgc
+$ git clone git://github.com/ivmai/libatomic_ops.git
+$ autoreconf -vif
+$ automake --add-missing
+$ ./configure
+$ make
+$ make check
+$ sudo make install
+</code></pre></dd>
+</dl>
+<h4><a href="#run-the-demo-application" name="run-the-demo-application" class="anchor"><span class="anchor-link"></span></a>Run the demo application</h4>
+<p>Clone or download <a href="https://github.com/scala-native/scala-native-example">scala-native-example</a></p>
 <p>Run the example application</p>
-<pre class="prettyprint"><code class="language-bash">    $ sbt run
+<pre class="prettyprint"><code class="language-bash">  $ cd scala-native-example
+  $ sbt run
 </code></pre>
-<p>Install xdg-open, which will help you open the generated image, like shown below:</p>
-<pre class="prettyprint"><code class="language-bash">    $ sudo apt-get install xdg-utils
-    $ xdg-open image0.ppm
-</code></pre>
+<p>You can now check with your preferred image editor the generated output <code>image0.ppm</code></p>
 <h2><a href="#troubleshooting" name="troubleshooting" class="anchor"><span class="anchor-link"></span></a>Troubleshooting</h2>
 <p>Some problems observed and well known solutions:</p>
 <ul>
@@ -143,10 +180,10 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <p>If your application needs features only available in most recent Scala Native sources, not yet<br/>available in public Maven repositories, you will probably find the instructions below useful.</p>
 <h4><a href="#building-and-installing-scala-native" name="building-and-installing-scala-native" class="anchor"><span class="anchor-link"></span></a>Building and installing Scala Native</h4>
 <p>Downloading&hellip;</p>
-<pre class="prettyprint"><code class="language-bash">    $ mkdir -p $HOME/workspace
-    $ cd $HOME/workspace
-    $ git clone https://github.com/scala-native/scala-native.git
-    $ cd $HOME/workspace/scala-native
+<pre class="prettyprint"><code class="language-bash">  $ mkdir -p $HOME/workspace
+  $ cd $HOME/workspace
+  $ git clone https://github.com/scala-native/scala-native.git
+  $ cd $HOME/workspace/scala-native
 </code></pre>
 <p>Make sure you disable generation of documentation in <code>build.sbt</code>:</p>
 <pre class="prettyprint"><code class="language-scala">lazy val baseSettings = Seq(
@@ -157,8 +194,8 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 )
 </code></pre>
 <p>Clean everything involving scala-native under your Ivy repository. Then proceed with the build:</p>
-<pre class="prettyprint"><code class="language-bash">    $ find $HOME/.ivy2 -type d -name &#39;*scala-native*&#39; | xargs rm -r -f
-    $ sbt clean nscplugin/publishLocal nativelib/publishLocal publishLocal
+<pre class="prettyprint"><code class="language-bash">  $ find $HOME/.ivy2 -type d -name &#39;*scala-native*&#39; | xargs rm -r -f
+  $ sbt &#39;cleanCache&#39; &#39;cleanLocal&#39; &#39;nscplugin/publishLocal&#39; &#39;nativelib/publishLocal&#39; &#39;publishLocal&#39;
 </code></pre>
 <a href="https://github.com/scala-native/scala-native"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
 <div class="nav-next">
@@ -173,9 +210,10 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <ul>
   <li><a href="../setup/index.html#setup">Setup</a>
   <ul>
+    <li><a href="../setup/index.html#installing-sbt">Installing SBT</a></li>
     <li><a href="../setup/index.html#installing-llvm-and-clang">Installing LLVM and CLang</a></li>
-    <li><a href="../setup/index.html#installing-libgc-dev">Installing libgc-dev</a></li>
-    <li><a href="../setup/index.html#run-application-and-see-the-output-generated">Run <em>this</em> application and see the output generated</a></li>
+    <li><a href="../setup/index.html#installing-boehm-gc">Installing Boehm GC</a></li>
+    <li><a href="../setup/index.html#run-the-demo-application">Run the demo application</a></li>
     <li><a href="../setup/index.html#troubleshooting">Troubleshooting</a></li>
     <li><a href="../setup/index.html#for-advanced-users-only">For advanced users only</a></li>
   </ul></li>
