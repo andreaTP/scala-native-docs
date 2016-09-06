@@ -1,7 +1,10 @@
-enablePlugins(ScalaNativePlugin)
 enablePlugins(ParadoxPlugin)
 
+// #sn_build
+enablePlugins(ScalaNativePlugin)
+
 scalaVersion := "2.11.8"
+// #sn_build
 
 name := "scala-native-example-docs"
 
