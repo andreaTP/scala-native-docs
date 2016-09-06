@@ -1,9 +1,9 @@
-@@@ index
+@@@index
 
-- [Setup](setup/index.md)
-- [HelloWorld](helloworld/index.md)
-- [FAQ](faq/index.md)
-- [Links](links/index.md)
+* [Setup](setup/index.md)
+* [HelloWorld](helloworld/index.md)
+* [FAQ](faq/index.md)
+* [Links](links/index.md)
 
 @@@
 
