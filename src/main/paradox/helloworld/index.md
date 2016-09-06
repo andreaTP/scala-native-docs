@@ -1,4 +1,4 @@
-## Hello World
+# Hello World
 
 If you have reached this section you probably have a system that is now able to compile and run Scala Native programs.
 

@@ -1,4 +1,4 @@
-## Setup
+# Setup
 
 This is what you will be doing, in a nutshell:
 
