@@ -1,1 +1,0 @@
-  $ pkg install llvm38
